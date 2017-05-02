@@ -1,0 +1,13 @@
+PACKAGE=@PACKAGE@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+includedir=@includedir@
+libdir=@libdir@
+pkglibdir=@pkglibdir@
+
+Name: altk
+Description: A GUI toolkit for Allegro 5
+Version: 0.0.0
+Requires: allegro-debug-5
+Cflags: -I${includedir}
+Libs: -L${libdir} -laltk
