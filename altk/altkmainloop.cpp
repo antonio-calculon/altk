@@ -7,6 +7,8 @@ using namespace altk;
 
 
 
+#define IDLE_REST_DELAY 0.01
+
 MainLoop *MainLoop::current_loop = NULL;
 
 
@@ -31,17 +33,21 @@ void MainLoop::run ()
   DEBUG("running loop...");
   while (true)
     {
+      bool idle = true;
       auto end = sources.end();
       for (auto it=sources.begin(); it != end; it++)
         {
           Source *source = (*it)->source;
           if (source->check())
             {
+              idle = false;
               if (!source->dispatch())
                 DEBUG("[TODO] remove source");
               break;
             }
         }
+      if (idle)
+        al_rest(IDLE_REST_DELAY);
     }
 }
 
