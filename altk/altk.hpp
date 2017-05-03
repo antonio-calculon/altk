@@ -11,4 +11,12 @@
 
 #include "altk/altkdisplay.hpp"
 
+#include "altk/altkwidget.hpp"
+
+#include "altk/altkcontainer.hpp"
+
+#include "altk/altkbin.hpp"
+
+#include "altk/altkwindow.hpp"
+
 #endif
