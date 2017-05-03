@@ -63,17 +63,12 @@ void Display::process_redraw ()
 {
   DEBUG("process redraw");
   //
-  Event event;
-  event.type = EVENT_TYPE_DRAW;
-  event.draw.display = this;
-  //
   std::unordered_set<Widget *> queue;
   redraw_queue.swap(queue);
   auto end = queue.end();
   for (auto it=queue.begin(); it != end; it++)
     {
-      event.draw.widget = (*it);
-      (*it)->process_event(&event);
+      (*it)->process_redraw(this);
       (*it)->unref();
     }
 }

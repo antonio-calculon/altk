@@ -13,15 +13,30 @@
 namespace altk
 {
   class Display;
+
+  class DrawVisitor : public WidgetVisitor
+  {
+    Event *event;
+    bool force_draw;
+    
+  public:
+    DrawVisitor ( Event *event );
+    void visit ( Widget *widget );
+  };
   
   class Window : public Bin
   {
   private:
     Display *display;
+    ALLEGRO_BITMAP *backbuffer;
+
+    void fix_backbuffer();
     
   public:
     Window ( Display *display );
     Display *get_display ();
+    virtual void on_size_allocate ( Allocation *alloc );
+    virtual void process_redraw ( Display *display );
     virtual void on_draw_event ( Event *event );
   };
 }

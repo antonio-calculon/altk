@@ -28,6 +28,8 @@ namespace altk
     
   public:
     Display ();
+    int get_width () { return al_get_display_width(al_display); }
+    int get_height () { return al_get_display_height(al_display); }
     bool open ( int width,
                 int height );
     ALLEGRO_DISPLAY *get_al_display ();

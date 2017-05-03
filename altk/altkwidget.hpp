@@ -98,6 +98,7 @@ namespace altk
     // containers
     virtual void accept ( WidgetVisitor *visitor ) {}
     // events
+    virtual void process_redraw ( Display *display ) {} // [FIXME] this is for Window
     void process_event ( Event *event );
     virtual void on_draw_event ( Event *event );
   };
