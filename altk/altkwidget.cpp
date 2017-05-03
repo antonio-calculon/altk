@@ -9,6 +9,7 @@ using namespace altk;
 
 Widget::Widget ()
 {
+  flags = 0;
   parent = NULL;
 }
 
