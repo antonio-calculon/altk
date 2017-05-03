@@ -14,6 +14,7 @@ namespace altk
   typedef enum _WidgetFlags
     {
       WIDGET_FLAG_ROOT_WIDGET = 1 << 0,
+      WIDGET_FLAG_VISIBLE = 1 << 1,
     }
     WidgetFlags;
   
@@ -27,6 +28,7 @@ namespace altk
     // flags accessors
     bool is_root_widget () { return flags & WIDGET_FLAG_ROOT_WIDGET; }
     void set_root_widget () { flags |= WIDGET_FLAG_ROOT_WIDGET; }
+    bool is_visible () { return flags & WIDGET_FLAG_VISIBLE; }
     //
     Widget ();
     void set_parent ( Widget *parent );
