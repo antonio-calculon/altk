@@ -45,11 +45,13 @@ DisplaySource::DisplaySource ( Display *display )
 
 bool DisplaySource::check ()
 {
+  DEBUG("check");
   return false;
 }
 
 
 bool DisplaySource::dispatch ()
 {
+  DEBUG("dispatch");
   return true;
 }
