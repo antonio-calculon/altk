@@ -5,6 +5,8 @@
 
 #include "altk/altkbase.hpp"
 
+#include "altk/altkobject.hpp"
+
 #include "altk/altkdisplay.hpp"
 
 #endif

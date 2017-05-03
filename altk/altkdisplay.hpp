@@ -3,7 +3,7 @@
 #ifndef _ALTKDISPLAY_HPP_
 #define _ALTKDISPLAY_HPP_
 
-#include "altk/altkbase.hpp"
+#include "altk/altkobject.hpp"
 
 
 
@@ -11,7 +11,7 @@
 //
 namespace altk
 {
-  class Display
+  class Display : public Object
   {
   private:
     ALLEGRO_DISPLAY *al_display;
