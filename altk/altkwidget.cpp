@@ -18,7 +18,7 @@ void WidgetVisitor::start ( Widget *widget )
 
 Widget::Widget ()
 {
-  flags = 0;
+  flags = WIDGET_FLAG_NEEDS_RESIZE;
   parent = NULL;
 }
 
@@ -71,6 +71,55 @@ void Widget::queue_resize ()
         }
       w = w->parent;
     }
+}
+
+
+
+void Widget::process_resize ()
+{
+  SizeRequest req = { 0, 0 };
+  size_request(&req);
+  Allocation alloc;
+  alloc.x = 0;
+  alloc.y = 0;
+  alloc.width = req.width;
+  alloc.height = req.height;
+  size_allocate(&alloc);
+}
+
+
+
+void Widget::size_request ( SizeRequest *req )
+{
+  if (needs_resize())
+    {
+      on_size_request(req);
+      flags &= ~WIDGET_FLAG_NEEDS_RESIZE;
+    }
+  else
+    {
+      *req = request;
+    }
+}
+
+
+
+void Widget::on_size_request ( SizeRequest *req )
+{
+}
+
+
+
+void Widget::size_allocate ( Allocation *alloc )
+{
+  DEBUG("[TODO] size_alloc: %d, %d, %d, %d", alloc->x, alloc->y, alloc->width, alloc->height);
+  on_size_allocate(alloc);
+}
+
+
+
+void Widget::on_size_allocate ( Allocation *alloc )
+{
 }
 
 

@@ -90,7 +90,14 @@ bool DisplaySource::dispatch ()
     }
   else if (!display->resize_queue.empty())
     {
-      DEBUG("[TODO] resize");
+      std::unordered_set<Widget *> queue;
+      display->resize_queue.swap(queue);
+      auto end = queue.end();
+      for (auto it=queue.begin(); it != end; it++)
+        {
+          (*it)->process_resize();
+          (*it)->unref();
+        }
     }
   return true;
 }

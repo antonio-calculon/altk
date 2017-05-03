@@ -22,6 +22,22 @@ namespace altk
     }
     WidgetFlags;
 
+  typedef struct _SizeRequest
+  {
+    int width;
+    int height;
+  }
+    SizeRequest;
+
+  typedef struct _Allocation
+  {
+    int x;
+    int y;
+    int width;
+    int height;
+  }
+    Allocation;
+
   typedef enum _WidgetVisitorMode
     {
       WIDGET_VISITOR_PREFIX,
@@ -48,7 +64,8 @@ namespace altk
   private:
     Widget *parent;
     unsigned int flags;
-
+    SizeRequest request;
+    
     void _show_all ( Widget *widget,
                      void *data );
     
@@ -64,6 +81,11 @@ namespace altk
     void set_parent ( Widget *parent );
     Widget *get_root ();
     void queue_resize ();
+    void process_resize ();
+    void size_request ( SizeRequest *req );
+    virtual void on_size_request ( SizeRequest *req );
+    void size_allocate ( Allocation *alloc );
+    virtual void on_size_allocate ( Allocation *alloc );
     void show_all ();
     // containers
     virtual void accept ( WidgetVisitor *visitor ) {}

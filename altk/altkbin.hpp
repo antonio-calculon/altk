@@ -20,6 +20,8 @@ namespace altk
     Bin ();
     virtual bool add ( Widget *child );
     virtual void accept ( WidgetVisitor *v );
+    virtual void on_size_request ( SizeRequest *req );
+    virtual void on_size_allocate ( Allocation *alloc );
   };
 }
 

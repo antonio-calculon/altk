@@ -34,3 +34,19 @@ void Bin::accept ( WidgetVisitor *v )
   if (child)
     v->visit(child);
 }
+
+
+
+void Bin::on_size_request ( SizeRequest *req )
+{
+  if (child && child->is_visible())
+    child->size_request(req);
+}
+
+
+
+void Bin::on_size_allocate ( Allocation *alloc )
+{
+  if (child && child->is_visible())
+    child->size_allocate(alloc);
+}
