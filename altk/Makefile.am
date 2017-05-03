@@ -12,6 +12,7 @@ libaltk_la_SOURCES = \
 	altkdisplay.cpp \
 	altkmainloop.cpp \
 	altkwidget.cpp \
+	altklabel.cpp \
 	altkcontainer.cpp \
 	altkbin.cpp \
 	altkwindow.cpp
@@ -25,6 +26,7 @@ pkginclude_HEADERS = \
 	altkdisplay.hpp \
 	altkmainloop.hpp \
 	altkwidget.hpp \
+	altklabel.hpp \
 	altkcontainer.hpp \
 	altkbin.hpp \
 	altkwindow.hpp

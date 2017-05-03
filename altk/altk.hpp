@@ -13,6 +13,8 @@
 
 #include "altk/altkwidget.hpp"
 
+#include "altk/altklabel.hpp"
+
 #include "altk/altkcontainer.hpp"
 
 #include "altk/altkbin.hpp"
