@@ -27,5 +27,29 @@ bool Display::open ( int width,
       ERROR("could not open display");
       return false;
     }
+  Source *source = new DisplaySource(this);
+  MainLoop *loop = MainLoop::get_current_loop();
+  loop->attach_source(source, 0);
+  source->unref();
+  return true;
+}
+
+
+
+DisplaySource::DisplaySource ( Display *display )
+{
+  this->display = display; // [FIXME] ref ??
+}
+
+
+
+bool DisplaySource::check ()
+{
+  return false;
+}
+
+
+bool DisplaySource::dispatch ()
+{
   return true;
 }

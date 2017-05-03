@@ -7,6 +7,8 @@
 
 #include "altk/altkobject.hpp"
 
+#include "altk/altkmainloop.hpp"
+
 #include "altk/altkdisplay.hpp"
 
 #endif

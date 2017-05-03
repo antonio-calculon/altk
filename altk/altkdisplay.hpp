@@ -4,6 +4,7 @@
 #define _ALTKDISPLAY_HPP_
 
 #include "altk/altkobject.hpp"
+#include "altk/altkmainloop.hpp"
 
 
 
@@ -20,6 +21,19 @@ namespace altk
     Display ();
     bool open ( int width,
                 int height );
+    bool check ();
+    void dispatch();
+  };
+
+  class DisplaySource : public Source
+  {
+  private:
+    Display *display;
+    
+  public:
+    DisplaySource ( Display *display );
+    bool check ();
+    bool dispatch ();
   };
 }
 
