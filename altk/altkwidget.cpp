@@ -114,6 +114,7 @@ void Widget::size_allocate ( Allocation *alloc )
 {
   DEBUG("[TODO] size_alloc: %d, %d, %d, %d", alloc->x, alloc->y, alloc->width, alloc->height);
   on_size_allocate(alloc);
+  queue_draw(); // wrong place ??
 }
 
 
@@ -137,4 +138,32 @@ void Widget::show_all ()
   ShowAllVisitor v;
   v.start(this);
   queue_resize();
+}
+
+
+
+void Widget::queue_draw ()
+{
+  Widget *w = this;
+  if (!w->is_visible())
+    return;
+  w->flags |= WIDGET_FLAG_NEEDS_REDRAW;
+  if (!w->is_root_widget())
+    {
+      w = w->parent;
+      while (w)
+        {
+          if (!w->is_visible())
+            return;
+          w->flags |= WIDGET_FLAG_CHILD_NEEDS_REDRAW;
+          if (w->is_root_widget())
+            break;
+          w = w->parent;
+        }
+    }
+  Display *d = w->get_display();
+  if (d)
+    {
+      d->queue_redraw(w);
+    }
 }

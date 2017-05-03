@@ -19,6 +19,8 @@ namespace altk
       WIDGET_FLAG_ROOT_WIDGET = 1 << 0,
       WIDGET_FLAG_VISIBLE = 1 << 1,
       WIDGET_FLAG_NEEDS_RESIZE = 1 << 2,
+      WIDGET_FLAG_NEEDS_REDRAW = 1 << 3,
+      WIDGET_FLAG_CHILD_NEEDS_REDRAW = 1 << 4,
     }
     WidgetFlags;
 
@@ -75,18 +77,23 @@ namespace altk
     void set_root_widget () { flags |= WIDGET_FLAG_ROOT_WIDGET; }
     bool is_visible () { return flags & WIDGET_FLAG_VISIBLE; }
     bool needs_resize () { return flags & WIDGET_FLAG_NEEDS_RESIZE; }
+    bool needs_redraw () { return flags & WIDGET_FLAG_NEEDS_REDRAW; }
+    bool child_needs_redraw () { return flags & WIDGET_FLAG_CHILD_NEEDS_REDRAW; }
     //
     Widget ();
     virtual Display *get_display ();
     void set_parent ( Widget *parent );
     Widget *get_root ();
+    // size management
     void queue_resize ();
     void process_resize ();
     void size_request ( SizeRequest *req );
     virtual void on_size_request ( SizeRequest *req );
     void size_allocate ( Allocation *alloc );
     virtual void on_size_allocate ( Allocation *alloc );
+    //
     void show_all ();
+    void queue_draw ();
     // containers
     virtual void accept ( WidgetVisitor *visitor ) {}
   };

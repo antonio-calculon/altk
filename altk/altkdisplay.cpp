@@ -51,6 +51,31 @@ void Display::queue_resize ( Widget *widget )
 
 
 
+void Display::queue_redraw ( Widget *widget )
+{
+  redraw_queue.insert((Widget *) widget->ref());
+}
+
+
+
+void Display::process_redraw ()
+{
+  DEBUG("process redraw");
+  //
+  
+  //
+  std::unordered_set<Widget *> queue;
+  redraw_queue.swap(queue);
+  auto end = queue.end();
+  for (auto it=queue.begin(); it != end; it++)
+    {
+      // (*it)->draw();
+      (*it)->unref();
+    }
+}
+
+
+
 DisplaySource::DisplaySource ( Display *display )
 {
   this->display = display; // [FIXME] ref ??
@@ -68,6 +93,8 @@ bool DisplaySource::check ()
   if (al_get_next_event(event_queue, &event))
     return event_pending = true;
   if (!display->resize_queue.empty())
+    return true;
+  if (!display->redraw_queue.empty())
     return true;
   return false;
 }
@@ -98,6 +125,10 @@ bool DisplaySource::dispatch ()
           (*it)->process_resize();
           (*it)->unref();
         }
+    }
+  else if (!display->redraw_queue.empty())
+    {
+      display->process_redraw();
     }
   return true;
 }
