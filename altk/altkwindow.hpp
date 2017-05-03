@@ -20,6 +20,7 @@ namespace altk
     
   public:
     Window ( Display *display );
+    Display *get_display ();
   };
 }
 

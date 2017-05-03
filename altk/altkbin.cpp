@@ -23,5 +23,6 @@ bool Bin::add ( Widget *child )
     }
   this->child = (Widget *) child->ref();
   child->set_parent(this);
+  child->queue_resize();
   return true;
 }

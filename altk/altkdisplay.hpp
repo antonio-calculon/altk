@@ -6,22 +6,31 @@
 #include "altk/altkobject.hpp"
 #include "altk/altkmainloop.hpp"
 
+#include <unordered_set>
+
 
 
 // altk::Display
 //
 namespace altk
 {
+  class Widget;
+  class DisplaySource;
+  
   class Display : public Object
   {
+    friend DisplaySource;
+    
   private:
     ALLEGRO_DISPLAY *al_display;
+    std::unordered_set<Widget *> resize_queue;
     
   public:
     Display ();
     bool open ( int width,
                 int height );
     ALLEGRO_DISPLAY *get_al_display ();
+    void queue_resize ( Widget *widget );
   };
 
   class DisplaySource : public Source

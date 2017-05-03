@@ -2,6 +2,7 @@
 
 #include "private.hpp"
 #include "altkdisplay.hpp"
+#include "altkwidget.hpp"
 
 using namespace altk;
 
@@ -43,6 +44,13 @@ ALLEGRO_DISPLAY *Display::get_al_display ()
 
 
 
+void Display::queue_resize ( Widget *widget )
+{
+  resize_queue.insert((Widget *) widget->ref());
+}
+
+
+
 DisplaySource::DisplaySource ( Display *display )
 {
   this->display = display; // [FIXME] ref ??
@@ -59,6 +67,8 @@ bool DisplaySource::check ()
     return true;
   if (al_get_next_event(event_queue, &event))
     return event_pending = true;
+  if (!display->resize_queue.empty())
+    return true;
   return false;
 }
 
@@ -66,16 +76,21 @@ bool DisplaySource::check ()
 bool DisplaySource::dispatch ()
 {
   DEBUG("dispatch");
-  if (!event_pending) // just in case
-    return true;
-  switch (event.type)
+  if (event_pending) // just in case
     {
-    case ALLEGRO_EVENT_DISPLAY_CLOSE:
-      DEBUG("display close, bye!");
-      exit(0);
-      break;
-    default:
-      DEBUG("unknown event: %d", event.type);
+      switch (event.type)
+        {
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+          DEBUG("display close, bye!");
+          exit(0);
+          break;
+        default:
+          DEBUG("unknown event: %d", event.type);
+        }
+    }
+  else if (!display->resize_queue.empty())
+    {
+      DEBUG("[TODO] resize");
     }
   return true;
 }
