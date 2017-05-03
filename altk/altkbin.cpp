@@ -26,3 +26,11 @@ bool Bin::add ( Widget *child )
   child->queue_resize();
   return true;
 }
+
+
+
+void Bin::accept ( WidgetVisitor *v )
+{
+  if (child)
+    v->visit(child);
+}

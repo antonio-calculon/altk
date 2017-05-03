@@ -12,6 +12,7 @@
 namespace altk
 {
   class Display;
+  class Widget;
   
   typedef enum _WidgetFlags
     {
@@ -20,12 +21,36 @@ namespace altk
       WIDGET_FLAG_NEEDS_RESIZE = 1 << 2,
     }
     WidgetFlags;
+
+  typedef enum _WidgetVisitorMode
+    {
+      WIDGET_VISITOR_PREFIX,
+    }
+    WidgetVisitorMode;
+  
+  class WidgetVisitor
+  {
+  public:
+    void start ( Widget *widget );
+    virtual void visit ( Widget *widget ) = 0;
+  };
+
+  class ShowAllVisitor : public WidgetVisitor
+  {
+  public:
+    void visit ( Widget *widget );
+  };
   
   class Widget : public Object
   {
+    friend ShowAllVisitor;
+    
   private:
     Widget *parent;
     unsigned int flags;
+
+    void _show_all ( Widget *widget,
+                     void *data );
     
   public:
     // flags accessors
@@ -39,6 +64,9 @@ namespace altk
     void set_parent ( Widget *parent );
     Widget *get_root ();
     void queue_resize ();
+    void show_all ();
+    // containers
+    virtual void accept ( WidgetVisitor *visitor ) {}
   };
 }
 

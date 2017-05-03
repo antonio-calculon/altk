@@ -8,6 +8,14 @@ using namespace altk;
 
 
 
+void WidgetVisitor::start ( Widget *widget )
+{
+  visit(widget);
+}
+
+
+
+
 Widget::Widget ()
 {
   flags = 0;
@@ -59,6 +67,25 @@ void Widget::queue_resize ()
           Display *d = w->get_display();
           if (d)
             d->queue_resize(w);
+          break;
         }
+      w = w->parent;
     }
+}
+
+
+
+void ShowAllVisitor::visit ( Widget *widget )
+{
+  widget->flags |= (WIDGET_FLAG_VISIBLE | WIDGET_FLAG_NEEDS_RESIZE);
+  widget->accept(this);
+}
+
+
+                      
+void Widget::show_all ()
+{
+  ShowAllVisitor v;
+  v.start(this);
+  queue_resize();
 }

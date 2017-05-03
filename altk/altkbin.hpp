@@ -19,6 +19,7 @@ namespace altk
   public:
     Bin ();
     virtual bool add ( Widget *child );
+    virtual void accept ( WidgetVisitor *v );
   };
 }
 
