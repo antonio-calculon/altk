@@ -8,6 +8,6 @@ pkglibdir=@pkglibdir@
 Name: altk
 Description: A GUI toolkit for Allegro 5
 Version: 0.0.0
-Requires: allegro-debug-5
+Requires: allegro-debug-5 allegro_font-debug-5
 Cflags: -I${includedir}
 Libs: -L${libdir} -laltk

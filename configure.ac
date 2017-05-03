@@ -8,7 +8,7 @@ AC_SUBST([pkgconfigdir], ['${libdir}/pkgconfig'])
 AC_PROG_CXX
 LT_INIT
 
-PKG_CHECK_MODULES([AL5], [allegro-debug-5])
+PKG_CHECK_MODULES([AL5], [allegro-debug-5 allegro_font-debug-5])
 
 AC_CONFIG_FILES([ \
   Makefile \
