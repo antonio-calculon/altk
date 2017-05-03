@@ -8,6 +8,7 @@ libaltk_la_CFLAGS = @AL5_CFLAGS@
 
 libaltk_la_SOURCES = \
 	altkbase.cpp \
+	altkevent.cpp \
 	altkobject.cpp \
 	altkdisplay.cpp \
 	altkmainloop.cpp \
@@ -22,6 +23,7 @@ include_HEADERS = \
 
 pkginclude_HEADERS = \
 	altkbase.hpp \
+	altkevent.hpp \
 	altkobject.hpp \
 	altkdisplay.hpp \
 	altkmainloop.hpp \

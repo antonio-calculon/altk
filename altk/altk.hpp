@@ -5,6 +5,8 @@
 
 #include "altk/altkbase.hpp"
 
+#include "altk/altkevent.hpp"
+
 #include "altk/altkobject.hpp"
 
 #include "altk/altkmainloop.hpp"
