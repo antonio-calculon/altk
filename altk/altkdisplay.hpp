@@ -21,14 +21,16 @@ namespace altk
     Display ();
     bool open ( int width,
                 int height );
-    bool check ();
-    void dispatch();
+    ALLEGRO_DISPLAY *get_al_display ();
   };
 
   class DisplaySource : public Source
   {
   private:
     Display *display;
+    ALLEGRO_EVENT_QUEUE *event_queue;
+    ALLEGRO_EVENT event;
+    bool event_pending;
     
   public:
     DisplaySource ( Display *display );

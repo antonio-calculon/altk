@@ -35,7 +35,6 @@ void MainLoop::run ()
       for (auto it=sources.begin(); it != end; it++)
         {
           Source *source = (*it)->source;
-          DEBUG("source: %p", source);
           if (source->check())
             {
               if (!source->dispatch())

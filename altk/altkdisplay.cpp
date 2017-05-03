@@ -36,16 +36,29 @@ bool Display::open ( int width,
 
 
 
+ALLEGRO_DISPLAY *Display::get_al_display ()
+{
+  return al_display;
+}
+
+
+
 DisplaySource::DisplaySource ( Display *display )
 {
   this->display = display; // [FIXME] ref ??
+  event_pending = false;
+  event_queue = al_create_event_queue();
+  al_register_event_source(event_queue, al_get_display_event_source(display->get_al_display()));
 }
 
 
 
 bool DisplaySource::check ()
 {
-  DEBUG("check");
+  if (event_pending)
+    return true;
+  if (al_get_next_event(event_queue, &event))
+    return event_pending = true;
   return false;
 }
 
@@ -53,5 +66,16 @@ bool DisplaySource::check ()
 bool DisplaySource::dispatch ()
 {
   DEBUG("dispatch");
+  if (!event_pending) // just in case
+    return true;
+  switch (event.type)
+    {
+    case ALLEGRO_EVENT_DISPLAY_CLOSE:
+      DEBUG("display close, bye!");
+      exit(0);
+      break;
+    default:
+      DEBUG("unknown event: %d", event.type);
+    }
   return true;
 }
