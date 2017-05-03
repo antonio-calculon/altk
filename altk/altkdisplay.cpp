@@ -104,6 +104,7 @@ bool DisplaySource::dispatch ()
   DEBUG("dispatch");
   if (event_pending) // just in case
     {
+      event_pending = false;
       switch (event.type)
         {
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
