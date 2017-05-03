@@ -113,6 +113,7 @@ void Widget::on_size_request ( SizeRequest *req )
 void Widget::size_allocate ( Allocation *alloc )
 {
   DEBUG("[TODO] size_alloc: %d, %d, %d, %d", alloc->x, alloc->y, alloc->width, alloc->height);
+  this->allocation = *alloc;
   on_size_allocate(alloc);
   queue_draw(); // wrong place ??
 }

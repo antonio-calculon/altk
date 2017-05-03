@@ -23,6 +23,7 @@ namespace altk
     
   private:
     ALLEGRO_DISPLAY *al_display;
+    std::vector<Widget *> attached_widgets;
     std::unordered_set<Widget *> resize_queue;
     std::unordered_set<Widget *> redraw_queue;
     
@@ -33,6 +34,7 @@ namespace altk
     bool open ( int width,
                 int height );
     ALLEGRO_DISPLAY *get_al_display ();
+    void attach_widget ( Widget *widget );
     void queue_resize ( Widget *widget );
     void queue_redraw ( Widget *widget );
     void process_redraw ();

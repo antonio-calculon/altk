@@ -64,10 +64,11 @@ namespace altk
   {
     friend ShowAllVisitor;
     
-  private:
+  protected:
     Widget *parent;
     unsigned int flags;
     SizeRequest request;
+    Allocation allocation;
     
     void _show_all ( Widget *widget,
                      void *data );
@@ -85,6 +86,8 @@ namespace altk
     virtual Display *get_display ();
     void set_parent ( Widget *parent );
     Widget *get_root ();
+    // [FIXME]
+    virtual ALLEGRO_BITMAP *get_backbuffer () { return NULL; }
     // size management
     void queue_resize ();
     void process_resize ();
@@ -92,6 +95,7 @@ namespace altk
     virtual void on_size_request ( SizeRequest *req );
     void size_allocate ( Allocation *alloc );
     virtual void on_size_allocate ( Allocation *alloc );
+    void get_allocation ( Allocation *alloc ) { *alloc = this->allocation; }
     //
     void show_all ();
     void queue_draw ();

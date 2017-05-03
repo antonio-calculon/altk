@@ -13,6 +13,7 @@ Window::Window ( Display *display )
   this->display = display; // ref ??
   set_root_widget();
   this->backbuffer = NULL;
+  display->attach_widget(this);
 }
 
 
@@ -27,8 +28,8 @@ Display *Window::get_display ()
 void Window::fix_backbuffer ()
 {
   ASSERT(display); // [todo]
-  int dw = display->get_width();
-  int dh = display->get_height();
+  int dw = allocation.width;
+  int dh = allocation.height;
   if (backbuffer)
     {
       int bw = al_get_bitmap_width(backbuffer);
@@ -106,4 +107,6 @@ void Window::process_redraw ( Display *display )
 void Window::on_draw_event ( Event *event )
 {
   DEBUG("window draw!");
+  ALLEGRO_COLOR bg = al_map_rgb(255, 0, 0);
+  al_clear_to_color(bg);
 }

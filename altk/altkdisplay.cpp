@@ -45,6 +45,14 @@ ALLEGRO_DISPLAY *Display::get_al_display ()
 
 
 
+void Display::attach_widget ( Widget *widget )
+{
+  ASSERT(widget->is_root_widget());
+  attached_widgets.push_back((Widget *) widget->ref());
+}
+
+
+
 void Display::queue_resize ( Widget *widget )
 {
   resize_queue.insert((Widget *) widget->ref());
@@ -63,14 +71,32 @@ void Display::process_redraw ()
 {
   DEBUG("process redraw");
   //
-  std::unordered_set<Widget *> queue;
-  redraw_queue.swap(queue);
-  auto end = queue.end();
-  for (auto it=queue.begin(); it != end; it++)
-    {
-      (*it)->process_redraw(this);
-      (*it)->unref();
-    }
+  {
+    std::unordered_set<Widget *> queue;
+    redraw_queue.swap(queue);
+    auto end = queue.end();
+    for (auto it=queue.begin(); it != end; it++)
+      {
+        (*it)->process_redraw(this);
+        (*it)->unref();
+      }
+  }
+  // refresh
+  {
+    ALLEGRO_STATE state;
+    al_store_state(&state, ALLEGRO_STATE_DISPLAY | ALLEGRO_STATE_TARGET_BITMAP);
+    al_set_target_backbuffer(al_display);
+    auto end = attached_widgets.end();
+    for (auto it=attached_widgets.begin(); it != end; it++)
+      {
+        Allocation alloc;
+        (*it)->get_allocation(&alloc);
+        ALLEGRO_BITMAP *backbuffer = (*it)->get_backbuffer();
+        al_draw_bitmap(backbuffer, alloc.x, alloc.y, 0);
+      }
+    al_flip_display();
+    al_restore_state(&state);
+  }
 }
 
 

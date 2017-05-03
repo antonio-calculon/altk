@@ -35,6 +35,7 @@ namespace altk
   public:
     Window ( Display *display );
     Display *get_display ();
+    virtual ALLEGRO_BITMAP *get_backbuffer () { return backbuffer; }
     virtual void on_size_allocate ( Allocation *alloc );
     virtual void process_redraw ( Display *display );
     virtual void on_draw_event ( Event *event );
