@@ -14,6 +14,7 @@ Window::Window ( Display *display )
   set_root_widget();
   this->backbuffer = NULL;
   display->attach_widget(this);
+  event_mask = EVENT_MASK_DRAW;
 }
 
 

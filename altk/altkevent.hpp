@@ -28,6 +28,7 @@ namespace altk
 
   typedef enum _EventMask
     {
+      EVENT_MASK_NONE = 0,
       EVENT_MASK_DRAW = 1 << 0,
     }
     EventMask;

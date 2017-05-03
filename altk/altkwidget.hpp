@@ -67,6 +67,7 @@ namespace altk
   protected:
     Widget *parent;
     unsigned int flags;
+    EventMask event_mask;
     SizeRequest request;
     Allocation allocation;
     

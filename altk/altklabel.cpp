@@ -10,6 +10,7 @@ using namespace altk;
 Label::Label ( const char *text )
 {
   this->text = text;
+  event_mask = EVENT_MASK_DRAW;
 }
 
 

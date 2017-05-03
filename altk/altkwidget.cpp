@@ -19,6 +19,7 @@ void WidgetVisitor::start ( Widget *widget )
 Widget::Widget ()
 {
   flags = WIDGET_FLAG_NEEDS_RESIZE;
+  event_mask = EVENT_MASK_NONE;
   parent = NULL;
 }
 
@@ -176,7 +177,8 @@ void Widget::process_event ( Event *event )
   switch (event->type)
     {
     case EVENT_TYPE_DRAW:
-      on_draw_event(event);
+      if (event_mask & EVENT_MASK_DRAW)
+        on_draw_event(event);
       break;
     default:
       ERROR("unknown event type: %d", event->type);
