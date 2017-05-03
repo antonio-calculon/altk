@@ -3,6 +3,7 @@
 #include "private.hpp"
 #include "altkdisplay.hpp"
 #include "altkwidget.hpp"
+#include "altkevent.hpp"
 
 using namespace altk;
 
@@ -62,14 +63,17 @@ void Display::process_redraw ()
 {
   DEBUG("process redraw");
   //
-  
+  Event event;
+  event.type = EVENT_TYPE_DRAW;
+  event.draw.display = this;
   //
   std::unordered_set<Widget *> queue;
   redraw_queue.swap(queue);
   auto end = queue.end();
   for (auto it=queue.begin(); it != end; it++)
     {
-      // (*it)->draw();
+      event.draw.widget = (*it);
+      (*it)->process_event(&event);
       (*it)->unref();
     }
 }

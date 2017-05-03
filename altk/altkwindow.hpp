@@ -4,6 +4,7 @@
 #define _ALTKWINDOW_HPP_
 
 #include "altk/altkbin.hpp"
+#include "altk/altkevent.hpp"
 
 
 
@@ -21,6 +22,7 @@ namespace altk
   public:
     Window ( Display *display );
     Display *get_display ();
+    virtual void on_draw_event ( Event *event );
   };
 }
 

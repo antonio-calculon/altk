@@ -167,3 +167,23 @@ void Widget::queue_draw ()
       d->queue_redraw(w);
     }
 }
+
+
+
+void Widget::process_event ( Event *event )
+{
+  switch (event->type)
+    {
+    case EVENT_TYPE_DRAW:
+      on_draw_event(event);
+      break;
+    default:
+      ERROR("unknown event type: %d", event->type);
+    }
+}
+
+
+
+void Widget::on_draw_event ( Event *event )
+{
+}

@@ -4,6 +4,7 @@
 #define _ALTKWIDGET_HPP_
 
 #include "altk/altkobject.hpp"
+#include "altk/altkevent.hpp"
 
 
 
@@ -13,7 +14,7 @@ namespace altk
 {
   class Display;
   class Widget;
-  
+
   typedef enum _WidgetFlags
     {
       WIDGET_FLAG_ROOT_WIDGET = 1 << 0,
@@ -96,6 +97,9 @@ namespace altk
     void queue_draw ();
     // containers
     virtual void accept ( WidgetVisitor *visitor ) {}
+    // events
+    void process_event ( Event *event );
+    virtual void on_draw_event ( Event *event );
   };
 }
 
