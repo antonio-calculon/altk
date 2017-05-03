@@ -13,6 +13,12 @@ namespace altk
 {
   class Bin : public Container
   {
+  private:
+    Widget *child;
+
+  public:
+    Bin ();
+    virtual bool add ( Widget *child );
   };
 }
 

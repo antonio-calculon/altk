@@ -13,6 +13,12 @@ namespace altk
 {
   class Widget : public Object
   {
+  private:
+    Widget *parent;
+    
+  public:
+    Widget ();
+    void set_parent ( Widget *parent );
   };
 }
 

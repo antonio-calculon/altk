@@ -13,6 +13,9 @@ namespace altk
 {
   class Container : public Widget
   {
+  public:
+    virtual bool add ( Widget *child ) = 0;
+    bool give ( Widget *child );
   };
 }
 
