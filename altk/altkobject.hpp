@@ -17,6 +17,7 @@ namespace altk
     unsigned int ref_count;
 
   public:
+    Object ();
     virtual ~Object ();
     void *ref ();
     void unref ();

@@ -6,6 +6,13 @@ using namespace altk;
 
 
 
+Object::Object ()
+{
+  ref_count = 1;
+}
+
+
+
 Object::~Object ()
 {
 }
